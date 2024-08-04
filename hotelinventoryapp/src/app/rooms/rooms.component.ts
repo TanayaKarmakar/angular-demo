@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Room, RoomsList } from './rooms';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-rooms',
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css',
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, AfterViewInit {
+  @ViewChild(HeaderComponent, { static: true })
+  headerComponent!: HeaderComponent;
+
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
 
@@ -51,7 +55,14 @@ export class RoomsComponent implements OnInit {
     this.selectedRoom = room;
   }
 
+  ngAfterViewInit(): void {
+    //console.log(this.headerComponent);
+    this.headerComponent.title = 'Rooms View';
+  }
+
   ngOnInit(): void {
+    console.log(this.headerComponent);
+
     this.roomList = [
       {
         roomNumber: 1,
