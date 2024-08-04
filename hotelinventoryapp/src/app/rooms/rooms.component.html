@@ -16,9 +16,9 @@
 </div>
 
 <div *ngIf="rooms?.availableRooms">
-  Rooms List
   <app-rooms-list
     [rooms]="roomList"
+    [title]="title"
     (roomSelected)="selectRoom($event)"
   ></app-rooms-list>
 </div>

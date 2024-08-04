@@ -3,7 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { RoomsList } from '../rooms';
 
@@ -13,9 +15,12 @@ import { RoomsList } from '../rooms';
   styleUrl: './rooms-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent {
+export class RoomsListComponent implements OnChanges {
   @Input()
   rooms: RoomsList[] = [];
+
+  @Input()
+  title: string = '';
 
   @Output()
   roomSelected = new EventEmitter<RoomsList>();
@@ -27,5 +32,13 @@ export class RoomsListComponent {
 
   clickMe() {
     console.log('Clicked');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //throw new Error('Method not implemented.');
+    console.log(changes);
+    if (changes['title']) {
+      this.title = changes['title'].currentValue.toUpperCase();
+    }
   }
 }
