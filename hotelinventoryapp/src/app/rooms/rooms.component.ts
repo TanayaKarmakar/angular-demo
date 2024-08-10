@@ -39,7 +39,7 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   addRoom() {
     console.log('Room Added');
     const room: RoomsList = {
-      roomNumber: 4,
+      roomNumber: '4',
       roomTypes: 'Deluxe Room',
       amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
       price: 500,
@@ -50,12 +50,37 @@ export class RoomsComponent implements OnInit, AfterViewInit {
     };
 
     //this.roomList.push(room);
-    this.roomList = [...this.roomList, room];
+    //this.roomList = [...this.roomList, room];
+    this.roomsService.addRoom(room).subscribe((data) => {
+      this.roomList = [...this.roomList, data];
+    });
+  }
+
+  editRoom() {
+    const room: RoomsList = {
+      roomNumber: '3',
+      roomTypes: 'Deluxe Room',
+      amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
+      price: 500,
+      photos: 'https://images.google.com/room4.jpg',
+      checkintime: new Date('11-Nov-2021'),
+      checkouttime: new Date('12-Nov-2021'),
+      rating: 4.583763,
+    };
+    this.roomsService
+      .editRoom(room)
+      .subscribe((data) => (this.roomList = data));
   }
 
   selectRoom(room: RoomsList) {
     console.log(room);
     this.selectedRoom = room;
+  }
+
+  deleteRoom() {
+    this.roomsService.delete('3').subscribe((data) => {
+      this.roomList = data;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -64,8 +89,14 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.roomsService.getPhotos().subscribe((data) => {
+      console.log(data);
+    });
+
     console.log(this.headerComponent);
 
-    this.roomList = this.roomsService.getRooms();
+    this.roomsService.getRooms().subscribe((rooms) => {
+      this.roomList = rooms;
+    });
   }
 }
