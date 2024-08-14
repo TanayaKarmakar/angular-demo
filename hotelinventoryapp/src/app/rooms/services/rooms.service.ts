@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { RoomsList } from '../rooms';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
+import { shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomsService {
+  //getRooms$ = this.http.get<RoomsList[]>('/api/rooms').pipe(shareReplay(1));
+
   constructor(private http: HttpClient) {}
 
   addRoom(room: RoomsList) {
+    // const headers = new HttpHeaders({
+    //   token: '12345dhvhd30930',
+    // });
     return this.http.post<RoomsList>('/api/rooms', room);
   }
 
@@ -22,7 +28,13 @@ export class RoomsService {
   }
 
   getRooms(): Observable<RoomsList[]> {
-    return this.http.get<RoomsList[]>('/api/rooms');
+    const headers = new HttpHeaders({
+      token: '12345dhvhd30930',
+    });
+
+    return this.http.get<RoomsList[]>('/api/rooms', {
+      headers,
+    });
     // let roomsList = [
     //   {
     //     roomNumber: 1,

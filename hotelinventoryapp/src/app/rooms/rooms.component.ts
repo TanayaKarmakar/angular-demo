@@ -90,6 +90,7 @@ export class RoomsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.roomsService.getPhotos().subscribe((data) => {
+      console.log('Photos Data');
       console.log(data);
     });
 
