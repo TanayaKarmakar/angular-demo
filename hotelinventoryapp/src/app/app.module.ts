@@ -26,6 +26,7 @@ import { HoverDirective } from './directives/hover/hover.directive';
 import { EmailvalidatorDirective } from './directives/emailvalidator/emailvalidator.directive';
 import { RoomsModule } from './rooms/rooms.module';
 import { HeaderModule } from './header/header.module';
+import { RouteConfigToken } from './services/routeConfig.service';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -60,6 +61,12 @@ function initFactory(initService: InitService) {
     provideClientHydration(),
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     provideAnimationsAsync(),
+    {
+      provide: RouteConfigToken,
+      useValue: {
+        title: 'Home',
+      },
+    },
     // {
     //   provide: APP_INITIALIZER,
     //   useFactory: initFactory,

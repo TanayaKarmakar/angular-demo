@@ -8,6 +8,7 @@ import { RoomsBookingComponent } from './rooms-booking/rooms-booking.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderModule } from '../header/header.module';
+import { RouteConfigToken } from '../services/routeConfig.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,14 @@ import { HeaderModule } from '../header/header.module';
     RoomsBookingComponent,
     RoomsListComponent,
     RoomsRoutingModule,
+  ],
+  providers: [
+    {
+      provide: RouteConfigToken,
+      useValue: {
+        title: 'Rooms',
+      },
+    },
   ],
 })
 export class RoomsModule {}

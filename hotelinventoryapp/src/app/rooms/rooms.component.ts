@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Room, RoomsList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-rooms',
@@ -29,7 +30,10 @@ export class RoomsComponent implements OnInit, AfterViewInit {
 
   selectedRoom!: RoomsList;
 
-  constructor(private roomsService: RoomsService) {}
+  constructor(
+    private roomsService: RoomsService,
+    private configService: ConfigService
+  ) {}
 
   toggle() {
     this.hideRooms = !this.hideRooms;
